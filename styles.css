@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=VT323&display=swap');
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	
+	--document-margins: 20px;
+}
+
+body {
+	display: flex;
+	/* Horizontal centering. */
+	justify-content: center;
+	/* Vertical centering, not needed. */
+	/* align-items: center; */
+	background-color: #f0f0f0;
+	font-family: "Roboto Mono", monospace;
+	font-optical-sizing: auto;
+	font-weight: 400;
+	font-style: normal;
+}
+
+#content {
+	max-width: calc(600px + var(--document-margins));
+	width: 90%;
+	padding: var(--document-margins);
+	background-color: white;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+	border-radius: 8px;
+}
+
+header {
+	font-size: 32pt;
+	border-bottom: black solid 1px;
+	margin-bottom: 16px;
+}
+
+ul, ol {
+	margin-left: calc(8px + var(--document-margins));
+}
