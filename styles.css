@@ -24,7 +24,7 @@ body {
 #content {
 	max-width: calc(600px + var(--document-margins));
 	width: 90%;
-	padding: var(--document-margins);
+	padding: 10px var(--document-margins);
 	background-color: white;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	border-radius: 8px;
