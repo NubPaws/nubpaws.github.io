@@ -31,7 +31,8 @@
 		
 		<div class="data-input">
 			<label for="action-count">Action count (#)</label>
-			<span id="action-count">0</span>
+			<input id="action-count" type="number" min="0" value="0"
+				oninput="updateValue(this)" />
 		</div>
 	</div>
 	<hr style="opacity: 0.25" />
