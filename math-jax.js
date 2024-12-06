@@ -2,11 +2,13 @@
 window.MathJax = {
 	loader: { load: ["[tex]/color"] },
 	tex: {
-		inlineMath: [["$", "$"], "\\(", "\\)"],
+		inlineMath: [["$", "$"]],
+		displayMath: [["$$", "$$"]],
 	},
 	svg: {
 		// Optional but improves performance apparently.
-		fontCache: "global"
+		fontCache: "global",
+		mtextInheritColor: true,
 	},
 };
 

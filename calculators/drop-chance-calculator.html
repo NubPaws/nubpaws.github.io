@@ -5,6 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<link rel="stylesheet" href="../styles.css">
+	<link rel="stylesheet" href="../article-styles.css">
 	<link rel="stylesheet" href="./drop-chance-calculator.css">
 	
 	<script type="text/javascript" src="../math-jax.js"></script>
@@ -37,104 +38,91 @@
 	</div>
 	<hr style="opacity: 0.25" />
 	<article>
-		<p class="sub-title">What is this calculator for</p>
+		<h1>What is this calculator for</h1>
 		<p>
 			Assume you are playing a game in which there's a loot box you can open and there's an item in the
 			loot box that has a drop chance of 0.2%. How many times will you have to open the loot box to
 			guarantee a 95% chance of getting the item?
-			<div class="spacer-half"></div>
-			This calculate calculates exactly this!
 		</p>
+		<p>This calculate calculates exactly this!</p>
 		
-		<p class="sub-title">How does this calculator work</p>
+		<h1>How does this calculator work</h1>
 		<p>
 			You give the calculator two out of three inputs. It'll then calculate the third
 			input automatically.
-			<div class="spacer-half"></div>
-			<ul>
-				<li>Drop chance - the chance for the item drop (self explanatory).</li>
-				<li>Success rate - the percentage of success you want to have of getting the item.</li>
-				<li>Action count - how many times you need to repeat the action to achieve said success rate.</li>
-			</ul>
 		</p>
+		<ul>
+			<li>Drop chance - the chance for the item drop (self explanatory).</li>
+			<li>Success rate - the percentage of success you want to have of getting the item.</li>
+			<li>Action count - how many times you need to repeat the action to achieve said success rate.</li>
+		</ul>
 		
-		<p class="sub-title">How do we actually calculate</p>
+		<h1>How do we actually calculate</h1>
+		
+		<p>I'll assume a basic knowledge in Algebra and a basic knowledge in Probability.</p>
 		<p>
-			I'll assume a basic knowledge in Algebra and a basic knowledge in Probability.
-			<div class="spacer-half"></div>
-			
 			More precisely, we'll be using <a href="https://en.wikipedia.org/wiki/Logarithm">Logarithms</a>
 			and the <a href="https://en.wikipedia.org/wiki/Binomial_distribution">Binomial Distribution</a>
 			to tackle this problem. You can read up on those two, or just trust the process.
-			<div class="spacer-full"></div>
-			
-			We'll begin by denoting a few variables.
-			<div class="spacer-quarter"></div>
-			
+		</p>
+		<p>We'll begin by denoting a few variables.</p>
+		<p>
 			Let $p \in \left(0,1\right)$ be the probability of getting the item from each action.
-			<div class="spacer-quarter"></div>
+			<br />
 			Let $ c \in \left( 0, 1 \right) $ be the success rate we are interested in.
-			<div class="spacer-quarter"></div>
+			<br />
 			Let $n \in \mathbb N $ be the number of times we need to do the experiment.
-			<div class="spacer-quarter"></div>
+		</p>
+		<p>
 			One last assumption, we'll assume that the actions are <i>independent</i>. That is, we'll
 			assume that each action doesn't affect any other action.
-			<div class="spacer-half"></div>
-			
+		</p>
+		<p>
 			With the last assumption we made, we can use $X$ to denote a random variable for the
 			number of times we have to do the action (open a loot box for example). We can then infer
 			that:
-			\[ X \sim \mathrm{Bin} \left( n, p \right) \]
-			Meaning $X$ follows a binomial distribution with parameters $n, p$.
-			<div class="spacer-half"></div>
-			
+		</p>
+		$$ X \sim \mathrm{Bin} \left( n, p \right) $$
+		<p>Meaning $X$ follows a binomial distribution with parameters $n$ and $p$.</p>
+		<p>
 			We want to have the probability of getting the item be greater than $c$, meaning we want
 			the following to be true
-			\[
-			\Pr \left( X \ge 1 \right) \ge c
-			\]
+		</p>
+		$$ \Pr \left( X \ge 1 \right) \ge c $$
+		<p>
 			However, this isn't an easy calculation to do optimally. We can still do it, and it wouldn't take
 			much time, but we would always like a closed solution.
-			<div class="spacer-quarter"></div>
-			
+		</p>
+		<p>
 			We can use the fact that $\Pr \left( A \right) = 1 - \Pr \left( A^c \right) $ where $A^c$ is the
 			complement of the event $A$.
-			<div class="spacer-quarter"></div>
-			
-			Using the complement we'll get that what we are really interested in is:
-			\[
-			\Pr \left( X \ge 1 \right) \ge c \iff 1 - \Pr \left( X &lt; 1 \right) \ge c
-			\]
+		</p>
+		<p>Using the complement we'll get that what we are really interested in is:</p>
+		$$ \Pr \left( X \ge 1 \right) \ge c \iff 1 - \Pr \left( X &lt; 1 \right) \ge c $$
+		<p>
 			And note that $X$ counts the number of times we do an action, and as we cannot do an acion a negative
 			number of times, we know that $X \ge 0$ meaning that the expression above is the same as
-			\[
-			1 - \Pr \left( X = 0 \right) \ge c
-			\]
-			Doing a bit of algebra we get
-			\[
-			\Pr \left( X = 0 \right) \le 1 - c
-			\]
+		</p>
+		$$ 1 - \Pr \left( X = 0 \right) \ge c $$
+		<p>Doing a bit of algebra we get</p>
+		$$ \Pr \left( X = 0 \right) \le 1 - c $$
+		<p>
 			Since we know $X$'s distribution we can apply the formula to calculate it's probability and
 			get the following:
-			\[
-			\binom{n}{0} p^0 \left(1 - p\right)^{n - 0} \le 1 - c
-			\]
-			\[
-			(1 - p)^n \le 1 - c
-			\]
+		</p>
+		$$ \binom{n}{0} p^0 \left(1 - p\right)^{n - 0} \le 1 - c $$
+		$$ (1 - p)^n \le 1 - c $$
+		<p>
 			And now we can apply the logarithm base $1 - p$ to get the value of $n$. Note that $1 - p \le 1$,
 			therefore, we must swap the in-equality symbol.
-			\[
-			n \ge \log_{1 - p} \left(1 - c\right)
-			\]
+		</p>
+		$$ n \ge \log_{1 - p} \left(1 - c\right) $$
+		<p>
 			Finally, since $n$ has to be a whole number, we will round the result upwards to get that the minimum
 			number of times we need to do the action, to get a $c$ success rate, is
-			\[
-			n = \left\lceil \log_{1 - p} \left(1 - c\right) \right\rceil
-			\]
-			<div class="spacer-full"></div>
-			And that's the end :&#41;.
 		</p>
+		$$ n = \left\lceil \log_{1 - p} \left(1 - c\right) \right\rceil $$
+		<p>And that completes our calculator :&#41;.</p>
 	</article>
 </div>
 </body>
