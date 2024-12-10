@@ -39,3 +39,144 @@ header {
 	border-bottom: black solid 1px;
 	margin-bottom: 1rem;
 }
+
+
+article {
+	line-height: 1.4;
+	color: #333;
+}
+
+/* Headers */
+article h1 {
+	font-size: 2em;
+	margin-bottom: 0.5em;
+	font-weight: bold;
+}
+article h2 {
+	font-size: 1.75em;
+	margin-bottom: 0.5em;
+	font-weight: bold;
+}
+article h3 {
+	font-size: 1.5em;
+	margin-bottom: 0.5em;
+	font-weight: bold;
+}
+article h4 {
+	font-size: 1.25em;
+	margin-bottom: 0.5em;
+	font-weight: bold;
+}
+article h5 {
+	font-size: 1em;
+	margin-bottom: 0.5em;
+	font-weight: bold;
+}
+article h6 {
+	font-size: 0.875em;
+	margin-bottom: 0.5em;
+	font-weight: bold;
+}
+
+/* Paragraphs */
+article p {
+	/* Makes the text span the whole width of the line */
+	/* text-align: justify; */
+	margin: 0.5em 0;
+}
+
+/* Bold and Italics */
+article strong {
+	font-weight: bold;
+}
+article em {
+	font-style: italic;
+}
+article em strong, article strong em {
+	font-weight: bold;
+	font-style: italic;
+}
+
+/* Links */
+article a {
+	color: #007acc;
+	text-decoration: none;
+}
+article a:hover {
+	text-decoration: underline;
+}
+
+/* Lists */
+article ul {
+	list-style-type: disc;
+	padding-left: 2em;
+}
+article ol {
+	list-style-type: decimal;
+	padding-left: 2em;
+}
+article li {
+	margin-bottom: 0.1em;
+}
+
+/* Blockquotes */
+article blockquote {
+	border-left: 4px solid #ddd;
+	padding-left: 1em;
+	color: #666;
+	font-style: italic;
+	margin: 1em 0;
+}
+
+/* Code */
+article code {
+	background-color: #f4f4f4;
+	padding: 2px 4px;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 0.95em;
+}
+article pre {
+	background-color: #f4f4f4;
+	padding: 10px;
+	border-radius: 8px;
+	overflow-x: auto;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: 0.95em;
+}
+
+/* Horizontal rule */
+article hr {
+	border: 0;
+	border-top: 1px solid #333;
+	margin: 2em 0;
+}
+
+/* Tables */
+article table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 1em 0;
+}
+article th, article td {
+	border: 1px solid #333;
+	padding: 8px;
+	text-align: left;
+}
+article th {
+	background: #fafafa;
+	font-weight: bold;
+}
+
+/* Images */
+article img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+	margin: 1em auto;
+}
+
+/* Strikethrough */
+article s {
+	text-decoration: line-through;
+}
+
