@@ -35,9 +35,8 @@ function loadStyle(url) {
 	});
 }
 
-// Load the MathJax script.
-(function () {
-	// Load MathJax
+function preloadLibraries() {
+	// Setup math-jax files.
 	window.MathJax = {
 		loader: { load: ["[tex]/color"] },
 		tex: {
@@ -50,15 +49,23 @@ function loadStyle(url) {
 			mtextInheritColor: true,
 		},
 	};
-	loadScript("https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js");
+}
+
+function postloadLibraries() {
+	document.querySelectorAll("pre code").forEach(block => { hljs.highlightElement(block); })
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+	preloadLibraries();
 	
 	// Load highlight.js
 	Promise.all([
+		// MathJax
+		loadScript("https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"),
+		
+		// highlight.js
 		loadScript("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"),
 		loadStyle("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"),
-	]).then(() => {
-		document.querySelectorAll("pre code").forEach(block => { hljs.highlightElement(block); })
-	});
+	]).then(postloadLibraries);
 	
-})();
-
+});
