@@ -132,17 +132,18 @@ article blockquote {
 article code {
 	background-color: #f4f4f4;
 	padding: 2px 4px;
-	font-family: 'Courier New', Courier, monospace;
+	font-family: "Roboto Mono", serif;
 	font-size: 0.95em;
 }
 article pre {
 	background-color: #f4f4f4;
-	padding: 10px;
+	padding-top: 24px;
 	border-radius: 8px;
 	overflow-x: auto;
-	font-family: 'Courier New', Courier, monospace;
 	font-size: 0.95em;
+	tab-size: 4;
 }
+
 
 /* Horizontal rule */
 article hr {

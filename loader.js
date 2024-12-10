@@ -4,10 +4,7 @@ function loadScript(url) {
 		const script = document.createElement("script");
 		script.src = url;
 		script.async = true;
-		script.onload = () => {
-			loadedScripts.add(url);
-			resolve();
-		};
+		script.onload = resolve;
 		script.onerror = () => reject(new Error(`Failed to load script: ${url}`));
 		
 		document.head.appendChild(script);
@@ -17,18 +14,10 @@ function loadScript(url) {
 // Helper to load a stylesheet dynamically.
 function loadStyle(url) {
 	return new Promise((resolve, reject) => {
-		if (loadStyles.has(url)) {
-			resolve();
-			return;
-		}
-		
 		const link = document.createElement("link");
 		link.rel = "stylesheet";
 		link.href = url;
-		link.onload = () => {
-			loadedScripts.add(url);
-			resolve();
-		};
+		link.onload = resolve;
 		link.onerror = () => reject(new Error(`Failed to load stylesheet: ${url}`));
 		
 		document.head.appendChild(link);
@@ -52,7 +41,7 @@ function preloadLibraries() {
 }
 
 function postloadLibraries() {
-	document.querySelectorAll("pre code").forEach(block => { hljs.highlightElement(block); })
+	hljs.highlightAll();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -64,8 +53,8 @@ document.addEventListener("DOMContentLoaded", () => {
 		loadScript("https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"),
 		
 		// highlight.js
+		loadStyle("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"),
 		loadScript("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"),
-		loadStyle("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"),
 	]).then(postloadLibraries);
 	
 });
