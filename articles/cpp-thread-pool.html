@@ -15,11 +15,65 @@
 	<header>Thread Pool in C++</header>
 	
 	<article>
-		<pre><code class="language-javascript">
-function greet() {
-	console.log("Hello World!");
-}
-		</code></pre>
+		<h1>Introduction</h1>
+		<p>I have created a thread pool in C++ and in this article I will present and explain the code.</p>
+		<p>
+			Before I begin, I will state that the original code I used is heavily based off of
+			<a href="https://stackoverflow.com/questions/15752659/thread-pooling-in-c11/32593825#32593825">
+				this StackOverflow answer from PhD AP EcE
+			</a>.
+			If you are interested in the original, and a more simple thread pool that just works - his answer
+			is perfect.
+		</p>
+		<p>The original answer could only accept jobs that are a void function, that receives no arguments.</p>
+		<p>
+			My goal was to make that thread pool much more modular, being able to accept different kinds of
+			functions and and function signatures (all returning void, but that can be changed easily though not
+			really needed with threads).
+		</p>
+		<p>
+			If you are interested in just getting the file, you can do so
+			<a href="../files/cpp-thread-pool/ThreadPool.hpp">here</a> and it is also available on
+			<a href="">my GitHub</a> with a working example (which I will present here as well).
+		</p>
+		
+		<h1>How to use</h1>
+		
+<pre><code class="language-cpp">int main() {
+	const size_t SIZE = 2 << 20;
+	std::vector<int> numbers(SIZE);
+	
+	fillWithRandomNumbers(numbers);
+	
+	// Create a thread pool with 4 threads.
+	ThreadPool<4, const std::vector<int>&, size_t, size_t, long long&> pool;
+	
+	// We want to split our code into 64 smaller chunks.
+	const size_t tasks = 64;
+	const size_t taskCount = SIZE / tasks;
+	
+	std::array<long long, tasks> results;
+	for (size_t i = 0; i < tasks; i++) {
+		results[i] = 0;
+		pool.queue(partialSum, numbers, taskCount * i, taskCount * (i + 1), results[i]);
+	}
+	
+	pool.start();
+	while (pool.busy()) {
+		std::this_thread::sleep_for(std::chrono::milliseconds(50));
+	}
+	pool.join();
+	
+	std::cout << "Result is:     " << std::accumulate(results.begin(), results.end(), 0LL) << "\n";
+	std::cout << "Actual sum is: " << std::accumulate(numbers.begin(), numbers.end(), 0LL) << "\n";
+	std::cout << "-----------------------------------------------------\n";
+	while (!printQueue.empty()) {
+		std::cout << printQueue.pop() << "\n";
+	}
+}</code></pre>
+		
+		<h1>How does it work</h1>
+		
 	</article>
 </div>
 </body>
