@@ -6,7 +6,7 @@
 	
 	<link rel="stylesheet" href="../styles.css">
 	
-	<script type="text/javascript" src="../loader.js"></script>
+	<!-- <script type="text/javascript" src="../loader.js"></script> -->
 	
 	<title>C++ Thread Pool</title>
 </head>
@@ -39,14 +39,14 @@
 		
 		<h1>How to use</h1>
 		
-<pre><code class="language-cpp">int main() {
-	const size_t SIZE = 2 << 20;
-	std::vector<int> numbers(SIZE);
+<pre><code>int main() {
+	const size_t SIZE = 2 &lt; 20;
+	std::vector&lt;int&gt; numbers(SIZE);
 	
 	fillWithRandomNumbers(numbers);
 	
 	// Create a thread pool with 4 threads.
-	ThreadPool<4, const std::vector<int>&, size_t, size_t, long long&> pool;
+	ThreadPool&lt;4, const std::vector&lt;int&gt;&amp;, size_t, size_t, long long&amp;&gt; pool;
 	
 	// We want to split our code into 64 smaller chunks.
 	const size_t tasks = 64;

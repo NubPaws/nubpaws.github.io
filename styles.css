@@ -129,20 +129,22 @@ article blockquote {
 }
 
 /* Code */
-article code {
-	background-color: #f4f4f4;
-	padding: 2px 4px;
-	font-family: "Consolas", monospace;
-	/* font-size: 0.95em; */
-}
 article pre {
 	background-color: #f4f4f4;
-	padding-top: 24px;
+	padding-top: 1rem;
 	border-radius: 8px;
+	font-family: "Courier New", Courier, monospace;
 	overflow-x: auto;
-	/* font-size: 0.95em; */
+	line-height: 1.5;
+}
+article code {
+	background-color: #282c34;
+	display: block;
+	white-space: pre;
+	color: white;
+	font-family: "Courier New", Courier, monospace;
 	tab-size: 4;
-	font-family: "Consolas", monospace;
+	padding: 1rem;
 }
 
 

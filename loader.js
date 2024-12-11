@@ -40,21 +40,12 @@ function preloadLibraries() {
 	};
 }
 
-function postloadLibraries() {
-	hljs.highlightAll();
-}
-
 document.addEventListener("DOMContentLoaded", () => {
 	preloadLibraries();
 	
-	// Load highlight.js
 	Promise.all([
 		// MathJax
 		loadScript("https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"),
-		
-		// highlight.js
-		loadStyle("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css"),
-		loadScript("https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"),
-	]).then(postloadLibraries);
+	]);
 	
 });
