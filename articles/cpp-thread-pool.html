@@ -6,75 +6,151 @@
 	
 	<link rel="stylesheet" href="../styles.css">
 	
-	<!-- <script type="text/javascript" src="../loader.js"></script> -->
+	<script type="text/javascript" src="../loader.js"></script>
 	
 	<title>C++ Thread Pool</title>
 </head>
 <body>
 <div id="content">
-	<header>Thread Pool in C++</header>
+<header>Thread Pool in C++</header>
+
+<article>
+
+<h1>Table of Contents</h1>
+<ol>
+	<li><a href="#introduction">Introduction</a></li>
+	<li><a href="#how-to-use-it">How to use it</a></li>
+	<li><a href="#lets-build-a-thread-pool">Let's Build a Thread Pool</a></li>
+</ol>
+
+<h1 id="introduction">Introduction</h1>
+<p>I have created a thread pool in C++ and in this article I will present and explain the code.</p>
+<p>
+	Before I begin, I will state that the original code I used is heavily based off of
+	<a href="https://stackoverflow.com/questions/15752659/thread-pooling-in-c11/32593825#32593825">
+		this StackOverflow answer from PhD AP EcE
+	</a>.
+	If you are interested in the original, and a more simple thread pool that just works - his answer
+	is perfect.
+</p>
+<p>The original answer could only accept jobs that are a void function, that receives no arguments.</p>
+<p>
+	My goal was to make that thread pool much more modular, being able to accept different kinds of
+	functions and and function signatures (all returning void, but that can be changed easily though not
+	really needed with threads).
+</p>
+<p>
+	If you are interested in just getting the file, you can do so
+	<a href="../files/cpp-thread-pool/ThreadPool.hpp">here</a> and it is also available on
+	<a href="">my GitHub</a> with a working example (which I will present here as well).
+</p>
+
+<h1 id="how-to-use-it">How to use it</h1>
+
+<p>
+	A full main file example using the code <a href="../files/cpp-thread-pool/Program.cpp">can be found here</a>.
+	Note that the code uses a <em>very basic</em> thread safe queue to handle the printing. That class
+	<code>QueueTS.hpp</code> <a href="../files/cpp-thread-pool/QueueTS.hpp">can be found here</a>.
+</p>
+
+<p>
+	I'll be assuming you know why you need a thread pool in the first place. My example will be a simple one
+	in which we'll be summing a large array.
+	We first create the function we want to execute on each of our threads. I have created the following function:
+</p>
+
+<pre><code>void partialSum(
+	const std::vector&lt;int&gt;&amp; ns,
+	size_t start,
+	size_t end,
+	long long&amp; result
+) {
+	result = std::accumulate(ns.begin() + start, ns.begin() + end, 0LL);
 	
-	<article>
-		<h1>Introduction</h1>
-		<p>I have created a thread pool in C++ and in this article I will present and explain the code.</p>
-		<p>
-			Before I begin, I will state that the original code I used is heavily based off of
-			<a href="https://stackoverflow.com/questions/15752659/thread-pooling-in-c11/32593825#32593825">
-				this StackOverflow answer from PhD AP EcE
-			</a>.
-			If you are interested in the original, and a more simple thread pool that just works - his answer
-			is perfect.
-		</p>
-		<p>The original answer could only accept jobs that are a void function, that receives no arguments.</p>
-		<p>
-			My goal was to make that thread pool much more modular, being able to accept different kinds of
-			functions and and function signatures (all returning void, but that can be changed easily though not
-			really needed with threads).
-		</p>
-		<p>
-			If you are interested in just getting the file, you can do so
-			<a href="../files/cpp-thread-pool/ThreadPool.hpp">here</a> and it is also available on
-			<a href="">my GitHub</a> with a working example (which I will present here as well).
-		</p>
-		
-		<h1>How to use</h1>
-		
-<pre><code>int main() {
-	const size_t SIZE = 2 &lt; 20;
-	std::vector&lt;int&gt; numbers(SIZE);
-	
-	fillWithRandomNumbers(numbers);
-	
-	// Create a thread pool with 4 threads.
-	ThreadPool&lt;4, const std::vector&lt;int&gt;&amp;, size_t, size_t, long long&amp;&gt; pool;
-	
-	// We want to split our code into 64 smaller chunks.
-	const size_t tasks = 64;
-	const size_t taskCount = SIZE / tasks;
-	
-	std::array<long long, tasks> results;
-	for (size_t i = 0; i < tasks; i++) {
-		results[i] = 0;
-		pool.queue(partialSum, numbers, taskCount * i, taskCount * (i + 1), results[i]);
-	}
-	
-	pool.start();
-	while (pool.busy()) {
-		std::this_thread::sleep_for(std::chrono::milliseconds(50));
-	}
-	pool.join();
-	
-	std::cout << "Result is:     " << std::accumulate(results.begin(), results.end(), 0LL) << "\n";
-	std::cout << "Actual sum is: " << std::accumulate(numbers.begin(), numbers.end(), 0LL) << "\n";
-	std::cout << "-----------------------------------------------------\n";
-	while (!printQueue.empty()) {
-		std::cout << printQueue.pop() << "\n";
-	}
+	std::stringstream s;
+	s &lt;&lt; "Summed from " &lt;&lt; start
+		&lt;&lt; " to " &lt;&lt; end
+		&lt;&lt; " and got a total of " &lt;&lt; result
+		&lt;&lt; " on thread " &lt;&lt; std::this_thread::get_id();
+	printQueue.push(s.str());
 }</code></pre>
-		
-		<h1>How does it work</h1>
-		
-	</article>
+
+<p>
+	<code>partialSum</code> simply sums a part of the <code>std::vector</code>. We will have a big array in
+	our <code>main</code> function, specifically of size $2^{20}$ which is approx. a million. We'll:
+</p>
+<ol>
+	<li>Split it into 64 partial sums.</li>
+	<li>Run all the partial sums on 4 threads.</li>
+	<li>Wait for them to finish.</li>
+	<li>Sum the 64 partial sums in the main thread.</li>
+	<li>Output the actual sum (by doing the full sum) and the sum of the partial sums.</li>
+</ol>
+
+<p>
+	Again, the full code can be seen above. We have a function called <code>fillWithRandomNumbers</code> that does what
+	it says to an <code>std::vector&lt;int&gt;&</code> passed to it. We also have a thread safe <code>QueueTS.hpp</code>
+	file we use for the printing which is global.
+</p>
+
+<p>
+	Here's our main function:
+</p>
+<pre><code>const size_t SIZE = 2 &lt;&lt; 20;
+std::vector&lt;int&gt; numbers(SIZE);
+
+fillWithRandomNumbers(numbers);
+
+// Create a thread pool with 4 threads.
+ThreadPool&lt;4, const std::vector&lt;int&gt;&, size_t, size_t, long long&&gt; pool;
+
+// We want to split our code into 64 smaller chunks.
+const size_t tasks = 64;
+const size_t taskCount = SIZE / tasks;
+
+std::array&lt;long long, tasks&gt; results;
+for (size_t i = 0; i &lt; tasks; i++) {
+	results[i] = 0;
+	pool.queue(partialSum, numbers, taskCount * i, taskCount * (i + 1), results[i]);
+}
+
+pool.start();
+while (pool.busy()) {
+	std::this_thread::sleep_for(std::chrono::milliseconds(50));
+}
+pool.join();
+
+std::cout &lt;&lt; "Result is:     "
+	&lt;&lt; std::accumulate(results.begin(), results.end(), 0LL)
+	&lt;&lt; "\n";
+std::cout &lt;&lt; "Actual sum is: "
+	&lt;&lt; std::accumulate(numbers.begin(), numbers.end(), 0LL)
+	&lt;&lt; "\n";
+std::cout &lt;&lt; "-----------------------------------------------------\n";
+while (!printQueue.empty()) &lcub;
+	std::cout &lt;&lt; printQueue.pop() &lt;&lt; "\n";
+&rcub;</code></pre>
+
+<p>
+	The main thing to focus on is our creation of the thread, in which we are passing the number
+	of threads we are interested in, and the argument types the function is expecting to get.
+	This gives us all the flexibility we might be interested in as we get to call any kind of
+	function we want (that returns <code>void</code>).
+</p>
+<p>
+	We should also look at the API. We can see that our thread pool supports the methods
+	<code>queue</code>, <code>start</code>, <code>busy</code> and <code>join</code>.
+	These methods are enough for us to handle our threads. Whereas <code>join</code> tells all threads
+	to stop execution of their current task and terminate, without executing any more tasks. <code>start</code>
+	starts running the thread, meaning there's an inner thread pool loop in the class.
+</p>
+<p>We'll be building all of those functions.</p>
+
+<h1 id="lets-build-a-thread-pool">Let's build a Thread Pool</h1>
+
+
+
+</article>
 </div>
 </body>
 </html>
