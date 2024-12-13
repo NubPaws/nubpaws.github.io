@@ -1,7 +1,14 @@
 /**
- * This ThreadPool class was implemented mainly based on the following
- * answer on StackOverflow by PhD AP EcE:
- * https://stackoverflow.com/a/32593825/3097239
+ * This code is a modification of the answer provided by PhD AP EcE
+ * at https://stackoverflow.com/a/32593825/3097239.
+ * 
+ * Modifications made by [Your Name or Handle].
+ * 
+ * Licensed under the Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0).
+ * You must give appropriate credit to the original author and to the modifier, and share any derived code
+ * under the same license.
+ * 
+ * Full license details: https://creativecommons.org/licenses/by-sa/4.0/
  */
 #ifndef THREAD_POOL_HPP
 #define THREAD_POOL_HPP
@@ -11,6 +18,7 @@
 #include <functional>
 #include <condition_variable>
 #include <queue>
+#include <array>
 #include <optional>
 #include <tuple>
 
@@ -35,7 +43,7 @@ private:
 	std::mutex queueMutex;
 	std::condition_variable mutexCondition;
 	
-	std::thread threads[threadCount];
+	std::array<threadCount, std::thread> threads;
 	std::queue<Job> jobs;
 	
 public:
