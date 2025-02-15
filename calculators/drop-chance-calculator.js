@@ -1,9 +1,4 @@
 
-document.addEventListener("DOMContentLoaded", () => {
-    // Ensure the action-count updates on page load
-    evaluateActionCount();
-});
-
 /**
  * Everytime any one of the inputs is updated, this function is called to update
  * the rest.
@@ -110,3 +105,6 @@ function nCr(n, r) {
 	// The denominator should be 1 by this point.
 	return numerator;
 }
+
+// Ensure the action-count updates on page load
+evaluateActionCount();

@@ -40,12 +40,9 @@ function preloadLibraries() {
 	};
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-	preloadLibraries();
-	
-	Promise.all([
-		// MathJax
-		loadScript("https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"),
-	]);
-	
-});
+preloadLibraries();
+
+Promise.all([
+	// MathJax
+	loadScript("https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-svg.js"),
+]);
