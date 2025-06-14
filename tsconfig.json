@@ -1,0 +1,23 @@
+{
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "public/*": ["public/*"]
+    }
+    // "strict": true,
+    // "target": "esnext",
+    // "module": "nodenext",
+    // "moduleResolution": "nodenext",
+    // "esModuleInterop": true,
+    // "forceConsistentCasingInFileNames": true,
+    // "skipLibCheck": true,
+    // "allowJs": true,
+    // "resolveJsonModule": true,
+    // "isolatedModules": true,
+    // "noEmit": true
+  }
+}
