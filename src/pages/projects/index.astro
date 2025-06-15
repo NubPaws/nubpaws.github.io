@@ -1,0 +1,81 @@
+---
+import Button from '@/components/Button.astro';
+import Card from '@/components/card/Card.astro';
+import CardContent from '@/components/card/CardContent.astro';
+import CardDescription from '@/components/card/CardDescription.astro';
+import CardHeader from '@/components/card/CardHeader.astro';
+import CardTitle from '@/components/card/CardTitle.astro';
+import Tag from '@/components/Tag.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+type ProjectData = {
+  title: string;
+  description: string;
+  githubLink: string;
+  tags: string[];
+};
+
+const projects: ProjectData[] = [
+  {
+    title: 'KNearestNeighbors',
+    description:
+      'Implementation of the KNearestNeighbors (KNN) algorithm as a server providing the calculations. KNN is an algorithm used in machine learning allowing us to categorize vectors based on their distance to our dataset.',
+    githubLink: 'https://github.com/NubPaws/KNearestNeighbors',
+    tags: ['Machine Learning', 'Algorithm', 'Server', 'C++', 'Sockets', 'Threads'],
+  },
+  {
+    title: 'ChatApp',
+    description:
+      'Chat app using MongoDB for the database, Express and Node.js for the backend API, React.js for the frontend for the user, and Java for the Android application.',
+    githubLink: 'https://github.com/NubPaws/ChatApp',
+    tags: ['MongoDB', 'Express', 'Node.js', 'React.js', 'Java', 'Android'],
+  },
+  {
+    title: 'MLP-MNIST-Example',
+    description:
+      'Machine Learning Project implementing Multi-Layer Perceptron for MNIST dataset classification.',
+    githubLink: 'https://github.com/NubPaws/MLP-MNIST-Example',
+    tags: ['Machine Learning', 'Neural Networks', 'MNIST', 'Python', 'NumPy'],
+  },
+  {
+    title: 'CNF-DNF-Calculator',
+    description:
+      'A truth table generator with CNF and DNF expressions for boolean logic calculations.',
+    githubLink: 'https://github.com/NubPaws/CNF-DNF-Calculator',
+    tags: ['Boolean Logic', 'JavaScript', 'Truth Tables', 'CNF', 'DNF'],
+  },
+];
+---
+
+<BaseLayout>
+  <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">My Projects</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    {
+      projects.map((project, index) => (
+        <Card key={index} class="bg-white/80 hover:shadow-lg transition-shadow">
+          <CardHeader>
+            <CardTitle className="text-xl text-gray-800">{project.title}</CardTitle>
+            <CardDescription className="text-gray-600">{project.description}</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {project.tags.map((tag) => (
+                <Tag>{tag}</Tag>
+              ))}
+            </div>
+            <Button
+              variant="secondary"
+              class="w-full border-black border-1"
+              href={project.githubLink}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View on GitHub
+            </Button>
+          </CardContent>
+        </Card>
+      ))
+    }
+  </div>
+</BaseLayout>

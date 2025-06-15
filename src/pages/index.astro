@@ -16,11 +16,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
           >website's github</a
         >.
       </h2>
-      <div class="flex gap-2 mt-auto">
+      <div class="flex gap-4 mt-auto">
         <Button
           variant="secondary"
           class="flex items-center space-x-2"
-          onclick="window.open('https://linkedin.com/in/your-profile', '_blank')"
+          href="https://linkedin.com/in/your-profile"
+          target="_blank"
         >
           <i class="fa-brands fa-linkedin"></i>
           <span>LinkedIn</span>
@@ -28,7 +29,8 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
         <Button
           variant="secondary"
           class="flex items-center space-x-2"
-          onclick="window.open('https://github.com/NubPaws', '_blank')"
+          href="https://github.com/NubPaws"
+          target="_blank"
         >
           <i class="fa-brands fa-github"></i>
           <span>GitHub</span>

@@ -1,6 +1,10 @@
 ---
 import NavigationBar from '@/components/NavigationBar.astro';
+import { cn } from '@/lib/utils';
 import '@/styles/global.css';
+import type { HTMLAttributes } from 'astro/types';
+
+const { class: className = '' } = Astro.props as HTMLAttributes<'div'>;
 ---
 
 <html lang="en">
@@ -14,7 +18,7 @@ import '@/styles/global.css';
   <body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
     <NavigationBar />
 
-    <div class="mx-auto max-w-[960px] pt-4 px-2">
+    <div class={cn('mx-auto max-w-[960px] pt-4 px-2', className)}>
       <slot />
     </div>
   </body>
