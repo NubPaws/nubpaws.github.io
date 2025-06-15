@@ -1,14 +1,64 @@
 ---
-import '@/styles/global.css';
+import Avatar from '@/components/Avatar.astro';
+import Button from '@/components/Button.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>NubPaws's Workshop</title>
-  </head>
-  <body> </body>
-</html>
+<BaseLayout>
+  <div class="flex justify-between">
+    <div class="flex flex-col justify-between">
+      <h1 class="text-4xl lg:text-5xl font-bold mb-6 text-gray-800 mt-8">Welcome to My Workshop</h1>
+      <div class="flex gap-2">
+        <Button
+          variant="outline"
+          class="flex items-center space-x-2"
+          onclick="window.open('https://linkedin.com/in/your-profile', '_blank')"
+        >
+          <!-- <Linkedin size={20} /> -->
+          <span>LinkedIn</span>
+        </Button>
+        <Button
+          variant="outline"
+          class="flex items-center space-x-2"
+          onclick="window.open('https://github.com/NubPaws', '_blank')"
+        >
+          <!-- <Github size={20} /> -->
+          <span>GitHub</span>
+        </Button>
+        <Button
+          variant="outline"
+          class="flex items-center space-x-2"
+          onclick={(() => {
+            const link = document.createElement('a');
+            // link.href = '/path-to-your-cv.pdf';
+            link.download = 'CV.pdf';
+            link.click();
+          }).toString()}
+        >
+          <!-- <Download size={20} /> -->
+          <span>Download CV</span>
+        </Button>
+      </div>
+    </div>
+    <div class="flex-shrink-0">
+      <Avatar
+        src="https://avatars.githubusercontent.com/u/18538525?v=4"
+        alt="Profile Avatar"
+        size={300}
+      />
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-lg p-8">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">About Me</h2>
+    <p class="text-lg leading-relaxed text-gray-700">
+      Full-stack developer with proven experience in building scalable web applications and
+      delivering robust solutions across the software development lifecycle. Strong problem-solving
+      skills, a collaborative mindset, and leadership capabilities honed through hands-on
+      development and cross-functional teamwork. Thrive in high-pressure environments and
+      consistently deliver high-quality results. Hold a B.Sc. in Computer Science and bring both
+      academic foundations and real-world experience to every project. Open to new full-time
+      opportunities where I can continue to grow and make meaningful contributions.
+    </p>
+  </div>
+</BaseLayout>
