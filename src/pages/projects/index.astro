@@ -11,7 +11,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 type ProjectData = {
   title: string;
   description: string;
-  githubLink: string;
+  link: string;
   tags: string[];
 };
 
@@ -20,28 +20,28 @@ const projects: ProjectData[] = [
     title: 'KNearestNeighbors',
     description:
       'Implementation of the KNearestNeighbors (KNN) algorithm as a server providing the calculations. KNN is an algorithm used in machine learning allowing us to categorize vectors based on their distance to our dataset.',
-    githubLink: 'https://github.com/NubPaws/KNearestNeighbors',
+    link: 'https://github.com/NubPaws/KNearestNeighbors',
     tags: ['Machine Learning', 'Algorithm', 'Server', 'C++', 'Sockets', 'Threads'],
   },
   {
     title: 'ChatApp',
     description:
       'Chat app using MongoDB for the database, Express and Node.js for the backend API, React.js for the frontend for the user, and Java for the Android application.',
-    githubLink: 'https://github.com/NubPaws/ChatApp',
+    link: 'https://github.com/NubPaws/ChatApp',
     tags: ['MongoDB', 'Express', 'Node.js', 'React.js', 'Java', 'Android'],
   },
   {
-    title: 'MLP-MNIST-Example',
+    title: 'MLP Example On MNIST Dataset',
     description:
       'Machine Learning Project implementing Multi-Layer Perceptron for MNIST dataset classification.',
-    githubLink: 'https://github.com/NubPaws/MLP-MNIST-Example',
+    link: 'https://github.com/NubPaws/MLP-MNIST-Example',
     tags: ['Machine Learning', 'Neural Networks', 'MNIST', 'Python', 'NumPy'],
   },
   {
-    title: 'CNF-DNF-Calculator',
+    title: 'Truth Table and CNF/DNF Calculator',
     description:
       'A truth table generator with CNF and DNF expressions for boolean logic calculations.',
-    githubLink: 'https://github.com/NubPaws/CNF-DNF-Calculator',
+    link: 'https://nubpaws.github.io/CNF-DNF-Calculator/',
     tags: ['Boolean Logic', 'JavaScript', 'Truth Tables', 'CNF', 'DNF'],
   },
 ];
@@ -67,11 +67,11 @@ const projects: ProjectData[] = [
             <Button
               variant="secondary"
               class="w-full border-black border-1"
-              href={project.githubLink}
+              href={project.link}
               target="_blank"
               rel="noopener noreferrer"
             >
-              View on GitHub
+              View Project
             </Button>
           </CardContent>
         </Card>
