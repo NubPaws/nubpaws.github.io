@@ -5,37 +5,36 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 ---
 
 <BaseLayout>
-  <div class="flex justify-between">
-    <div class="flex flex-col justify-between">
-      <h1 class="text-4xl lg:text-5xl font-bold mb-6 text-gray-800 mt-8">Welcome to My Workshop</h1>
-      <div class="flex gap-2">
+  <div class="flex justify-between gap-2">
+    <div class="flex flex-col mt-8 mb-4">
+      <h1 class="text-4xl lg:text-5xl font-bold mb-6 text-gray-800">Welcome to My Workshop</h1>
+      <h2 class="text-xl">
+        Where I post my projects, write articles and publish games. Everything in this website was
+        made by me, in my free time, for the enjoyment of others. <br />
+        If you see any issues, feel free to propose a fix on the
+        <a class="underline text-blue-700" href="https://github.com/NubPaws/nubpaws.github.io"
+          >website's github</a
+        >.
+      </h2>
+      <div class="flex gap-2 mt-auto">
         <Button
-          variant="outline"
+          variant="secondary"
           class="flex items-center space-x-2"
           onclick="window.open('https://linkedin.com/in/your-profile', '_blank')"
         >
-          <!-- <Linkedin size={20} /> -->
+          <i class="fa-brands fa-linkedin"></i>
           <span>LinkedIn</span>
         </Button>
         <Button
-          variant="outline"
+          variant="secondary"
           class="flex items-center space-x-2"
           onclick="window.open('https://github.com/NubPaws', '_blank')"
         >
-          <!-- <Github size={20} /> -->
+          <i class="fa-brands fa-github"></i>
           <span>GitHub</span>
         </Button>
-        <Button
-          variant="outline"
-          class="flex items-center space-x-2"
-          onclick={(() => {
-            const link = document.createElement('a');
-            // link.href = '/path-to-your-cv.pdf';
-            link.download = 'CV.pdf';
-            link.click();
-          }).toString()}
-        >
-          <!-- <Download size={20} /> -->
+        <Button id="download-cv-btn" variant="secondary" class="flex items-center space-x-2">
+          <i class="fa-solid fa-download"></i>
           <span>Download CV</span>
         </Button>
       </div>
@@ -62,3 +61,14 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
     </p>
   </div>
 </BaseLayout>
+
+<script>
+  function downloadCV() {
+    const link = document.createElement('a');
+    link.href = '/path-to-your-cv.pdf';
+    link.download = 'CV.pdf';
+    link.click();
+  }
+
+  document.getElementById('download-cv-btn')?.addEventListener('click', downloadCV);
+</script>
