@@ -1,0 +1,22 @@
+---
+import '@/styles/global.css';
+import BaseLayout from './BaseLayout.astro';
+import type { MarkdownLayoutProps } from 'astro';
+import { cn } from '@/lib/utils';
+
+type Props = MarkdownLayoutProps<{ title: string }>;
+const { frontmatter } = Astro.props as Props;
+---
+
+<BaseLayout>
+  <h1 class="text-center mb-6 text-5xl font-bold tracking-tight">{frontmatter.title ?? 'asd'}</h1>
+  <article
+    class={cn(
+      'bg-white p-5 rounded-xl drop-shadow-xl prose prose-zinc',
+      'md:prose-base lg:prose-lg mx-auto max-w-full',
+      '[&>*:first-child]:mt-0 [&>*:last-child]:mb-0'
+    )}
+  >
+    <slot />
+  </article>
+</BaseLayout>
