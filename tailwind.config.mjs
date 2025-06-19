@@ -6,27 +6,35 @@ export default defineConfig({
   plugins: [typography],
   theme: {
     extend: {
-      colors: {
-        primary: ({ opacityVariable }) => `rgb(var(--tw-color-primary) / var(${opacityVariable}))`,
-      },
-
       typography: ({ theme }) => ({
         DEFAULT: {
           css: {
-            maxWidth: 'unset',
+            /* — tighter lists — */
+            'ul,ol': {
+              marginTop: theme('spacing.1'),
+              marginBottom: theme('spacing.1'),
+            },
+            'ul > li + li, ol > li + li': {
+              marginTop: theme('spacing.1'),
+            },
 
-            '--tw-prose-body': theme('colors.zinc.900'),
-            '--tw-prose-headings': theme('colors.zinc.900'),
+            /* — blue links + no underline on hover — */
+            a: {
+              color: theme('colors.blue.600'),
+              textDecoration: 'underline',
+              '&:hover': {
+                textDecoration: 'none',
+              },
+            },
 
-            '--tw-prose-links': `rgb(var(--tw-color-primary) / 1)`,
-
-            '--tw-prose-code': theme('colors.zinc.800'),
-
-            '--tw-prose-pre-bg': theme('colors.zinc.50'),
-
+            /* — headings less bold — */
             'h1,h2,h3,h4,h5,h6': {
               scrollMarginTop: theme('spacing.24'),
               letterSpacing: theme('letterSpacing.tight'),
+              fontWeight: theme('fontWeight.semibold'),
+            },
+            /* keep H4 & H5 fully bold */
+            'h4,h5': {
               fontWeight: theme('fontWeight.bold'),
             },
           },
