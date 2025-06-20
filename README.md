@@ -1,47 +1,26 @@
-# Astro Starter Kit: Minimal
+# My Website and Playground
 
-```sh
-npm create astro@latest -- --template minimal
-```
+Welcome to my website!
 
-[![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/withastro/astro/tree/latest/examples/minimal)
-[![Open with CodeSandbox](https://assets.codesandbox.io/github/button-edit-lime.svg)](https://codesandbox.io/p/sandbox/github/withastro/astro/tree/latest/examples/minimal)
-[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/withastro/astro?devcontainer_path=.devcontainer/minimal/devcontainer.json)
+This website serves as a simple portfolio for my projects as well as a playground for me to test my projects and publish items there.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The website is work in progress, and will continue being a work in progress as long as I program!
 
-## 🚀 Project Structure
+## Tech Stack
 
-Inside of your Astro project, you'll see the following folders and files:
+- Astro
+- TypeScript
+- Tailwindcss
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+I chose Astro as I was looking for a framework that will let me natively render Markdown files. The reason I wanted that was to be able to create articles easily. <br>
+I remember reading an article about an Entity Component System in C++ and the page looked like it was made with markdown, but a custom styled markdown. I thought it looked really amazing and also really nice - especially for a person who likes making programming/mathematics tutorials and posts. <br>
+That is why I chose Astro.
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+TypeScript is an obvious choice for any JavaScript related development.
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+I chose Tailwind as I was in the mood of keeping everything self contained. Although some people might say that using Tailwind pollutes the code with uncessary class names. I believe once you get used to it it's a great tool to get things up and running quickly without having to navigate between files too much. <br>
+Perfect for small and large scale applications.
 
-Any static assets, like images, can be placed in the `public/` directory.
+## License
 
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Everything on this page was written by me, you may share the website, but not pass it as your own.
