@@ -1,0 +1,73 @@
+---
+import Button from '@/components/Button.astro';
+import Card from '@/components/card/Card.astro';
+import CardContent from '@/components/card/CardContent.astro';
+import CardDescription from '@/components/card/CardDescription.astro';
+import CardHeader from '@/components/card/CardHeader.astro';
+import CardTitle from '@/components/card/CardTitle.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+type ArticleData = {
+  title: string;
+  description: string;
+  date: string;
+  link: string;
+  target?: '_blank' | '_self' | '_parent' | '_top';
+};
+
+const articles: ArticleData[] = [
+  {
+    title: 'How to containerize your project',
+    description:
+      'Step-by-step tutorial on containerizing applications using Docker for better deployment and scalability.',
+    date: 'March 28th, 2025',
+    link: 'https://github.com/NubPaws/Containerization',
+    target: '_blank',
+  },
+  {
+    title: 'Implementing a Thread Pool in C++',
+    description:
+      'A comprehensive guide to building efficient thread pools in C++ for concurrent programming.',
+    date: 'December 13th, 2024',
+    link: '/articles/2024-12-13-thread-pool-cpp',
+  },
+  {
+    title: 'How to Calculate the drop chance of a loot box',
+    description:
+      'Understanding probability mechanics in gaming and how to calculate the actual drop rates for rare items.',
+    date: 'December 7th, 2024',
+    link: '/articles/2024-12-07-drop-chance-calculator',
+  },
+];
+---
+
+<BaseLayout>
+  <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Articles & Tutorials</h1>
+  <div class="space-y-6">
+    {
+      articles.map((article, index) => (
+        <Card key={index} class=" bg-white/80 hover:shadow-lg transition-shadow">
+          <CardHeader>
+            <div class="flex justify-between items-start">
+              <div>
+                <CardTitle class="text-xl text-gray-800">{article.title}</CardTitle>
+                <CardDescription class="text-gray-600 mt-2">{article.description}</CardDescription>
+              </div>
+              <span class="py-1 text-black/90 text-sm">{article.date}</span>
+            </div>
+          </CardHeader>
+          <CardContent class="flex">
+            <Button
+              class="ml-auto"
+              href={article.link}
+              target={article.target || '_self'}
+              variant="primary"
+            >
+              Read Article
+            </Button>
+          </CardContent>
+        </Card>
+      ))
+    }
+  </div>
+</BaseLayout>

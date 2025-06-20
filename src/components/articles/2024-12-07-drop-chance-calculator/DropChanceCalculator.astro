@@ -1,0 +1,155 @@
+---
+/*  No front-matter logic needed for this purely-client component. */
+---
+
+<!-- ----------  Client-side logic  ---------- -->
+<script is:inline>
+  /**
+   * Every time an input updates, clamp its value and
+   * re-evaluate the other field(s).
+   * @param {HTMLInputElement} input
+   */
+  function updateValue(input) {
+    if (!input.value) input.value = '0';
+
+    let value = parseFloat(input.value);
+    const min = parseFloat(input.min);
+    const max = parseFloat(input.max);
+
+    if (value < min) value = min;
+    if (value > max) value = max;
+
+    const isActionCount = input.id === 'action-count';
+    input.value = isActionCount ? Math.round(value) : value;
+
+    if (isActionCount) evaluateSuccessRate();
+    else evaluateActionCount();
+  }
+
+  function evaluateSuccessRate() {
+    const dropChance = parseFloat(document.getElementById('drop-chance').value);
+    const actionCount = parseInt(document.getElementById('action-count').value);
+    const successRateInput = document.getElementById('success-rate');
+
+    const p = dropChance / 100;
+    const n = actionCount;
+    const c = 1 - Math.pow(1 - p, n);
+
+    successRateInput.value = isNaN(c) || !isFinite(c) ? 'Invalid' : (c * 100).toPrecision(5);
+  }
+
+  function evaluateActionCount() {
+    const dropChance = parseFloat(document.getElementById('drop-chance').value);
+    const successRate = parseFloat(document.getElementById('success-rate').value);
+    const actionCountInput = document.getElementById('action-count');
+
+    const p = dropChance / 100;
+    const c = successRate / 100;
+
+    const n = Math.ceil(Math.log(1 - c) / Math.log(1 - p));
+    actionCountInput.value = isNaN(n) || !isFinite(n) ? 'Invalid' : n;
+  }
+
+  /** Greatest-common-divisor via Euclid. */
+  function gcd(a, b) {
+    while (b !== 0) {
+      [a, b] = [b, a % b];
+    }
+    return a;
+  }
+
+  /** Combinations nCr with incremental simplification. */
+  function nCr(n, r) {
+    if (r > n) return 0;
+    if (r === 0 || r === n) return 1;
+    r = Math.min(r, n - r);
+
+    let num = 1,
+      den = 1;
+    for (let i = 1; i <= r; i++) {
+      num *= n--;
+      den *= i;
+      const div = gcd(num, den);
+      num /= div;
+      den /= div;
+    }
+    return num; // den is 1 now
+  }
+
+  // Kick-start once the DOM is ready.
+  window.addEventListener('DOMContentLoaded', evaluateActionCount);
+</script>
+
+<!-- ----------  Mark-up + Tailwind styling  ---------- -->
+<div
+  id="calc-container"
+  class="flex flex-col md:flex-row md:justify-between gap-6 m-4 p-6
+            bg-gradient-to-br from-gray-50 to-gray-200
+            border border-gray-300 rounded-xl shadow-lg"
+>
+  <!-- Drop chance -->
+  <div class="flex flex-col min-w-[150px] gap-2">
+    <label for="drop-chance" class="text-gray-700 font-semibold text-sm tracking-wide">
+      Drop chance&nbsp;(%)
+    </label>
+
+    <input
+      id="drop-chance"
+      type="number"
+      min="0"
+      max="100"
+      step="0.01"
+      placeholder="e.g. 5"
+      class="px-3 py-2 border border-gray-300 rounded-lg
+                  w-full max-w-[200px] bg-white text-gray-800
+                  shadow-inner placeholder-gray-400 italic
+                  focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-300
+                  hover:border-gray-500 hover:shadow"
+      oninput="updateValue(this)"
+    />
+  </div>
+
+  <!-- Action count -->
+  <div class="flex flex-col min-w-[150px] gap-2">
+    <label for="action-count" class="text-gray-700 font-semibold text-sm tracking-wide">
+      Action count
+    </label>
+
+    <input
+      id="action-count"
+      type="number"
+      min="0"
+      max="999999"
+      step="1"
+      placeholder="e.g. 100"
+      class="px-3 py-2 border border-gray-300 rounded-lg
+                  w-full max-w-[200px] bg-white text-gray-800
+                  shadow-inner placeholder-gray-400 italic
+                  focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-300
+                  hover:border-gray-500 hover:shadow"
+      oninput="updateValue(this)"
+    />
+  </div>
+
+  <!-- Desired success rate -->
+  <div class="flex flex-col min-w-[150px] gap-2">
+    <label for="success-rate" class="text-gray-700 font-semibold text-sm tracking-wide">
+      Desired success&nbsp;rate&nbsp;(%)
+    </label>
+
+    <input
+      id="success-rate"
+      type="number"
+      min="0"
+      max="100"
+      step="0.01"
+      placeholder="e.g. 95"
+      class="px-3 py-2 border border-gray-300 rounded-lg
+                  w-full max-w-[200px] bg-white text-gray-800
+                  shadow-inner placeholder-gray-400 italic
+                  focus:outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-300
+                  hover:border-gray-500 hover:shadow"
+      oninput="updateValue(this)"
+    />
+  </div>
+</div>

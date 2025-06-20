@@ -1,0 +1,72 @@
+---
+import Button from '@/components/Button.astro';
+import Card from '@/components/card/Card.astro';
+import CardContent from '@/components/card/CardContent.astro';
+import CardDescription from '@/components/card/CardDescription.astro';
+import CardHeader from '@/components/card/CardHeader.astro';
+import CardTitle from '@/components/card/CardTitle.astro';
+import Tag from '@/components/Tag.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+
+type GameInfo = {
+  title: string;
+  description: string;
+  technologies: string[];
+  url: string;
+  github: string;
+};
+
+const games: GameInfo[] = [
+  {
+    title: 'Space Invaders',
+    description: [
+      'Clone of the classic arcade game Space Invaders written in pure Java.',
+      'The project implements a gaming library written by me allowing us',
+      'to have a fixed update loop and an unbounded frame rate.',
+    ].join(' '),
+    technologies: ['Java', 'Java Swing'],
+    url: 'https://github.com/NubPaws/JavaSpaceInvaders/releases/tag/v1.0',
+    github: 'https://github.com/NubPaws/JavaSpaceInvaders',
+  },
+  {
+    title: 'Dino Game',
+    description: [
+      "Google's Dino Game clone made made with TypeScript.",
+      'This project implements a self made game development library,',
+      'providing a fixed update and an unbounded frame rate.',
+    ].join(' '),
+    technologies: ['TypeScript'],
+    url: 'https://nubpaws.github.io/DinoGameTS/',
+    github: 'https://github.com/NubPaws/DinoGameTS',
+  },
+];
+---
+
+<BaseLayout>
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Games</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {
+        games.map((game, index) => (
+          <Card key={index} class="hover:shadow-lg transition-shadow bg-white/90">
+            <CardHeader>
+              <CardTitle class="text-xl text-gray-800">{game.title}</CardTitle>
+              <CardDescription class="text-gray-600">{game.description}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div class="mb-4">
+                {game.technologies.length > 0 && game.technologies.map((tech) => <Tag>{tech}</Tag>)}
+              </div>
+              <Button variant="primary" href={game.url}>
+                View Game
+              </Button>
+              <Button variant="secondary" href={game.github}>
+                View GitHub Page
+              </Button>
+            </CardContent>
+          </Card>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

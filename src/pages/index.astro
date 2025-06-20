@@ -1,0 +1,76 @@
+---
+import Avatar from '@/components/Avatar.astro';
+import Button from '@/components/Button.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  <div class="flex justify-between gap-2">
+    <div class="flex flex-col mt-8 mb-4">
+      <h1 class="text-4xl lg:text-5xl font-bold mb-6 text-gray-800">Welcome to My Workshop</h1>
+      <h2 class="text-xl">
+        Where I post my projects, write articles and publish games. Everything in this website was
+        made by me, in my free time, for the enjoyment of others. <br />
+        If you see any issues, feel free to propose a fix on the
+        <a class="underline text-blue-700" href="https://github.com/NubPaws/nubpaws.github.io"
+          >website's github</a
+        >.
+      </h2>
+      <div class="flex gap-4 mt-auto">
+        <Button
+          variant="secondary"
+          class="flex items-center space-x-2"
+          href="https://linkedin.com/in/your-profile"
+          target="_blank"
+        >
+          <i class="fa-brands fa-linkedin"></i>
+          <span>LinkedIn</span>
+        </Button>
+        <Button
+          variant="secondary"
+          class="flex items-center space-x-2"
+          href="https://github.com/NubPaws"
+          target="_blank"
+        >
+          <i class="fa-brands fa-github"></i>
+          <span>GitHub</span>
+        </Button>
+        <Button id="download-cv-btn" variant="secondary" class="flex items-center space-x-2">
+          <i class="fa-solid fa-download"></i>
+          <span>Download CV</span>
+        </Button>
+      </div>
+    </div>
+    <div class="flex-shrink-0">
+      <Avatar
+        src="https://avatars.githubusercontent.com/u/18538525?v=4"
+        alt="Profile Avatar"
+        size={300}
+      />
+    </div>
+  </div>
+
+  <div class="bg-white rounded-lg shadow-lg p-8">
+    <h2 class="text-2xl font-semibold mb-4 text-gray-800">About Me</h2>
+    <p class="text-lg leading-relaxed text-gray-700">
+      Full-stack developer with proven experience in building scalable web applications and
+      delivering robust solutions across the software development lifecycle. Strong problem-solving
+      skills, a collaborative mindset, and leadership capabilities honed through hands-on
+      development and cross-functional teamwork. Thrive in high-pressure environments and
+      consistently deliver high-quality results. Hold a B.Sc. in Computer Science and bring both
+      academic foundations and real-world experience to every project. Open to new full-time
+      opportunities where I can continue to grow and make meaningful contributions.
+    </p>
+  </div>
+</BaseLayout>
+
+<script>
+  function downloadCV() {
+    const link = document.createElement('a');
+    link.href = '/path-to-your-cv.pdf';
+    link.download = 'CV.pdf';
+    link.click();
+  }
+
+  document.getElementById('download-cv-btn')?.addEventListener('click', downloadCV);
+</script>

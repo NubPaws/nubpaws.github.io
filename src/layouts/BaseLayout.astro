@@ -1,0 +1,25 @@
+---
+import NavigationBar from '@/components/NavigationBar.astro';
+import { cn } from '@/lib/utils';
+import '@/styles/global.css';
+import type { HTMLAttributes } from 'astro/types';
+
+const { class: className = '' } = Astro.props as HTMLAttributes<'div'>;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>NubPaws's Workshop</title>
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <NavigationBar />
+
+    <div class={cn('mx-auto max-w-[960px] pt-4 px-2', className)}>
+      <slot />
+    </div>
+  </body>
+</html>

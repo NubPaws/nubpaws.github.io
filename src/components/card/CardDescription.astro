@@ -1,0 +1,10 @@
+---
+import { cn } from '@/lib/utils';
+import type { HTMLAttributes } from 'astro/types';
+
+const { class: className = '', ...rest } = Astro.props as HTMLAttributes<'p'>;
+---
+
+<p class={cn('text-sm text-muted-foreground', className)} {...rest}>
+  <slot />
+</p>

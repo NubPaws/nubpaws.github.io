@@ -1,0 +1,72 @@
+---
+import '@/styles/global.css';
+import BaseLayout from './BaseLayout.astro';
+import type { MarkdownLayoutProps } from 'astro';
+import { cn } from '@/lib/utils';
+
+type Props = MarkdownLayoutProps<{ title: string }>;
+const { frontmatter } = Astro.props as Props;
+---
+
+<BaseLayout>
+  <div
+    id="sample-copy-div"
+    class="hidden absolute mt-2 right-8 items-center gap-2 z-10 hover:cursor-pointer"
+  >
+    <i class="text-white/80 fa-solid fa-copy"></i>
+    <button class="text-white/80 hover:cursor-pointer">Copy</button>
+  </div>
+
+  <h1 class="text-center mb-6 text-5xl font-bold tracking-tight">{frontmatter.title}</h1>
+  <article
+    class={cn(
+      'prose mx-auto max-w-full rounded-xl bg-white mb-5 p-5 drop-shadow-xl',
+      // tighter paragraphs, lists & pre/code
+      '[&_p]:mt-2 [&_p]:mb-2 [&_p]:leading-snug',
+      '[&_ul]:mt-1 [&_ul]:mb-1 [&_ul]:leading-snug',
+      '[&_ol]:mt-1 [&_ol]:mb-1 [&_ol]:leading-snug',
+      '[&_pre]:mt-3 [&_pre]:mb-3 [&_pre]:relative',
+      // lighter headings + tighter spacing
+      '[&_h1]:font-medium [&_h1]:mt-4 [&_h1]:mb-2',
+      '[&_h2]:font-medium [&_h2]:mt-3 [&_h2]:mb-2',
+      '[&_h3]:font-medium [&_h3]:mt-2 [&_h3]:mb-1',
+      '[&_h4]:font-medium [&_h4]:mt-1 [&_h4]:mb-0',
+      '[&_h5]:font-medium [&_h5]:mt-0 [&_h5]:mb-0',
+
+      '[&_li]:mt-0 [&_li]:mb-0.5',
+      '[&_li.task-list-item]:list-none [&_li.task-list-item]:pl-0',
+
+      '[&_a]:text-blue-700 [&_a]:hover:no-underline',
+      // your other prose-zinc color class if you want
+      'prose-zinc'
+    )}
+  >
+    <slot />
+  </article>
+</BaseLayout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('pre').forEach((pre) => {
+      const ogDiv = document.getElementById('sample-copy-div')!;
+
+      const div = ogDiv.cloneNode(true) as HTMLDivElement;
+      div.id = '';
+      div.classList.remove('hidden');
+      div.classList.add('flex');
+
+      const btn = div.getElementsByTagName('button')[0];
+
+      div.addEventListener('click', () => {
+        navigator.clipboard.writeText(pre.querySelector('code')!.innerText.trim()).then(() => {
+          if (btn.textContent === 'Copied') {
+            return;
+          }
+          btn.textContent = 'Copied';
+          setTimeout(() => (btn.textContent = 'Copy'), 2000);
+        });
+      });
+      pre.parentElement?.insertBefore(div, pre);
+    });
+  });
+</script>
