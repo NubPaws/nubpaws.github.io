@@ -9,7 +9,6 @@ import react from '@astrojs/react';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://nubpaws.github.io',
-  base: '/',
   integrations: [
     mdx({
       remarkPlugins: [remarkMath],
