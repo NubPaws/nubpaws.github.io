@@ -2,6 +2,10 @@
 
 Welcome to my website!
 
+<p align="center">
+  <img height="300" src="./.github/hero-image.png">
+</p>
+
 This website serves as a simple portfolio for my projects as well as a playground for me to test my projects and publish items there.
 
 The website is work in progress, and will continue being a work in progress as long as I program!
